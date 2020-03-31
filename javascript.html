@@ -200,6 +200,7 @@
 	/**
  * SelectBox Actions
  */
+
 	$(function () {
 		var imDataObject;
 		$('.btn-danger').attr('disabled', true);
@@ -213,9 +214,6 @@
 				}
 			}, 100);
 		}
-
-		// End Render Selectboxes
-
 		/**
 	 * on area selectbox change
 	 */
@@ -289,22 +287,7 @@
 			$('.tbl').slideUp(1400);
 		});
 
-		/**
-		 * add more Row button
-		*/
-		$('.add-row').on('click', () => {
-			className = ['color', 'wipType', 'tankType', 'bundle'];
-			const table = document.querySelector('.tbl');
-			const additionalRow = new imTableRow(imDataObject, -1);
-			additionalRow.addFirstProp();
-			additionalRow.addSecondProp('bundle', document.createTextNode('Sản phẩm'), document.createElement('select'));
-			additionalRow.addProp('color', document.createTextNode('Màu'), document.createElement('select'), 'wipType', document.createTextNode('Loại trolley'), document.createElement('select'));
-			additionalRow.addProp('tankType', document.createTextNode('Loại Tank'), document.createElement('select'), 'wipquantity', document.createTextNode('Số lượng wip'), document.createElement('input'));
-			additionalRow.addProp('tankweight', document.createTextNode('Khối lượng tank'), document.createElement('input'), 'wipweight', document.createTextNode('Khối lượng wip'), document.createElement('input'));
-			additionalRow.addProp('dryerAndSkeleton', document.createTextNode('Số lượng cán'), document.createElement('input'), 'hopper', document.createTextNode('Hopper'), document.createElement('input'));
-			table.appendChild(additionalRow.render());
-			additionalRow.addRowSelectOption(className, imDataObject);
-		});
+
 
 		/**
 		 * resin handler for data submission
@@ -497,6 +480,24 @@
 		});
 	});
 
+	/**
+	 * add more Row button
+	*/
+	$(function () {
+		$('.add-row').on('click', () => {
+			className = ['color', 'wipType', 'tankType', 'bundle'];
+			const table = document.querySelector('.tbl');
+			const additionalRow = new imTableRow(imDataObject, -1);
+			additionalRow.addFirstProp();
+			additionalRow.addSecondProp('bundle', document.createTextNode('Sản phẩm'), document.createElement('select'));
+			additionalRow.addProp('color', document.createTextNode('Màu'), document.createElement('select'), 'wipType', document.createTextNode('Loại trolley'), document.createElement('select'));
+			additionalRow.addProp('tankType', document.createTextNode('Loại Tank'), document.createElement('select'), 'wipquantity', document.createTextNode('Số lượng wip'), document.createElement('input'));
+			additionalRow.addProp('tankweight', document.createTextNode('Khối lượng tank'), document.createElement('input'), 'wipweight', document.createTextNode('Khối lượng wip'), document.createElement('input'));
+			additionalRow.addProp('dryerAndSkeleton', document.createTextNode('Số lượng cán'), document.createElement('input'), 'hopper', document.createTextNode('Hopper'), document.createElement('input'));
+			table.appendChild(additionalRow.render());
+			additionalRow.addRowSelectOption(className, imDataObject);
+		});
+	});
 
 	/**
  * Render mixing table using TableRow class 
