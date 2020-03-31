@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Stock count</title>
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/styles/metro/notify-metro.min.css">
+	<?!= include('styles'); ?>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"
+		integrity="sha256-tSRROoGfGWTveRpDHFiWVz+UXt+xKNe90wwGn25lpw8=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/styles/metro/notify-metro.min.js"
+		integrity="sha256-IHzEWPqZSg6vO7WlcyvHoX8W45F6yBwUDYFTxEUAsrk=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+	<header>
+		<div class="container">
+			<div class="left">
+				<div>
+					<img class="logo" id="topElement"
+						src="https://drive.google.com/a/colpal.com/uc?export=view&id=1hLp2KmBeOXDPqZrym6v0PaWaGaEtb1KN">
+
+					<h4 class="title">Stock Count</h4>
+				</div>
+			</div>
+			<div class="right">
+				<div>
+					<h4 class="brand">Colgate Palmolive Việt Nam</h4>
+					<h5>Chi nhánh Mỹ Phước</h5>
+				</div>
+			</div>
+		</div>
+	</header>
+	<main class="container">
+		<!-- progress-bar-striped progress-bar-animated -->
+		<div class="border">
+			<div class="tool-box">
+				<div class="form-group area">
+					<label>Khu vực</label>
+					<select class="form-control" id="">
+						<option selected disabled>Chọn...</option>
+						<option>Mixing</option>
+						<option>IM</option>
+						<option>TE</option>
+						<option>PKG</option>
+					</select>
+				</div>
+				<div class="form-group category">
+					<label>Phân loại</label>
+					<select class="form-control" id="category">
+						<option selected disabled>Chọn...</option>
+					</select>
+				</div>
+				<div class="form-group cell">
+					<label for="">Cụm</label>
+					<select class="form-control" id="cell">
+						<option selected disabled>Chọn...</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="username">
+			<input type="text" placeholder="MSNV">
+		</div>
+
+		<div class="tbl">
+		</div>
+		<div class="rotate">
+			<button type="button" class="btn btn-danger submit">Submit</button>
+		</div>
+		<div class="go-to-top"><i class="fas fa-arrow-up"></i></div>
+		<div class="add-row"></div>
+	</main>
+	<footer>
+		&copy; 2020 - Digital team. All Rights Reserved
+	</footer>
+	<section class="pre-loader"></section>
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" defer></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" defer></script>
+	<?!= include('javascript'); ?>
+</body>
+
+</html>

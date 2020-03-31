@@ -1,0 +1,558 @@
+<script>
+	/**
+ * Class RTableRow for create element of Resin information
+ */
+	class ResinTableRow {
+		constructor(materialCode, materialDescription) {
+			this.materialCode = materialCode;
+			this.materialDescription = materialDescription;
+			let divE = document.createElement('div');
+			divE.className = 'tbl-resin';
+			divE.id = this.materialCode;
+			this.Div = divE;
+		}
+
+		render() {
+			return this.Div;
+		}
+
+		addHeadProp() {
+			let headLeftElement = document.createElement('div');
+			headLeftElement.className = 'head-left title';
+			headLeftElement.innerText = this.materialCode + ' - ' + this.materialDescription;
+			this.Div.appendChild(headLeftElement)
+
+			let headMiddleElement = document.createElement('div');
+			headMiddleElement.className = 'head-middle title';
+			headMiddleElement.innerText = 'Số bao nhựa đầy';
+			this.Div.appendChild(headMiddleElement)
+
+			let headRightElement = document.createElement('div');
+			headRightElement.className = 'head-right title';
+			headRightElement.innerText = 'Số kg nhựa lẻ';
+			this.Div.appendChild(headRightElement)
+		}
+
+		addProp(left, middle, right, dataType) {
+			let leftElement = document.createElement('div');
+			leftElement.className = 'content-left content';
+			leftElement.appendChild(left);
+			this.Div.appendChild(leftElement);
+
+			let middleElement = document.createElement('div');
+			middleElement.className = 'content-middle content ';
+			middle.setAttribute('type', 'number');
+			middle.setAttribute('min', '0');
+			middle.setAttribute('data-fullpack-' + dataType, this.materialCode);
+			middle.className = 'full-pack ' + dataType;
+			middleElement.appendChild(middle);
+			this.Div.appendChild(middleElement);
+
+			let rightElement = document.createElement('div');
+			rightElement.className = 'content-right content';
+			right.setAttribute('type', 'number');
+			right.setAttribute('min', '0');
+			right.className = 'left-over ' + dataType;
+			right.setAttribute('value', 0);
+			right.setAttribute('data-leftover-' + dataType, this.materialCode);
+			let checkBox = document.createElement('input');
+			checkBox.setAttribute('type', 'checkbox');
+			rightElement.appendChild(checkBox);
+			rightElement.appendChild(right);
+			this.Div.appendChild(rightElement);
+		}
+	}
+
+	/**
+ * Class TableRow-Colorant for create element of Colorant information
+ */
+
+	class ColorantTableRow {
+		constructor(materialCode, materialDescription) {
+			this.materialCode = materialCode;
+			this.materialDescription = materialDescription;
+			let divE = document.createElement('div');
+			divE.className = 'tbl-colorant';
+			divE.id = this.materialCode;
+			this.Div = divE;
+		}
+		addHeadProp() {
+			let headLeftElement = document.createElement('div');
+			headLeftElement.className = 'head colorant-title';
+			headLeftElement.innerText = this.materialCode + ' - ' + this.materialDescription;
+			this.Div.appendChild(headLeftElement)
+
+			let headMiddleElement = document.createElement('div');
+			headMiddleElement.className = 'head colorant-weight';
+			headMiddleElement.innerText = 'Số kg hạt màu';
+			this.Div.appendChild(headMiddleElement)
+		}
+		addProp(right) {
+			let rightElement = document.createElement('div');
+			rightElement.className = 'middle colorant-input';
+			right.setAttribute('type', 'number');
+			right.setAttribute('data-colorant', this.materialCode);
+			right.className = 'colorant';
+			rightElement.appendChild(right);
+			this.Div.appendChild(rightElement);
+		}
+		render() {
+			return this.Div;
+		}
+	}
+	/**
+ * Class imTableRow for create element of Injection Molding information
+ */
+	class imTableRow {
+		constructor(object, index) {
+			this.object = object;
+			this.index = index;
+			this.defaultOption = '<option selected>Chọn...</option>';
+			let topLeftE = document.createElement('div');
+			topLeftE.className = 'top-10';
+			this.topLeftE = topLeftE;
+			let divE = document.createElement('div');
+			divE.className = 'tbl-im';
+			this.Div = divE;
+			this.Div.appendChild(topLeftE);
+
+		}
+		addFirstProp() {
+			if (this.index >= 0) {
+				this.Div.id = this.object['areaCluster'][this.index];
+				this.topLeftE.innerText = 'Máy: ' + this.object['areaCluster'][this.index];
+			} else {
+				let topRightE = document.createElement('input');
+				this.topLeftE.innerText = 'Máy: ';
+				topRightE.className = 'addition-row';
+				this.topLeftE.appendChild(topRightE);
+			}
+		}
+
+		addSecondProp(middleTopRightClass, middleTopleft, middleTopRight) {
+			let eMiddleRight = document.createElement('div');
+			eMiddleRight.className = 'middle-top-right-10';
+			let eMiddleLeft = document.createElement('div');
+			eMiddleLeft.className = 'middle-top-left-10';
+			eMiddleLeft.appendChild(document.createTextNode('Sản phẩm'));
+			eMiddleRight.appendChild(middleTopRight);
+			this.Div.appendChild(eMiddleLeft);
+			middleTopRight.className = 'content-select ' + middleTopRightClass;
+			middleTopRight.id = this.object['areaCluster'][this.index];
+			this.Div.appendChild(eMiddleRight);
+		}
+		addProp(leftClass, left, middleLeft, rightClass, middleRight, right, id) {
+			let eL = document.createElement('div');
+			eL.className = 'left-10';
+			eL.appendChild(left);
+			this.Div.appendChild(eL);
+
+			let eMiddleLeft = document.createElement('div');
+			if (middleLeft.type === 'text') {
+				middleLeft.setAttribute('type', 'number');
+				middleLeft.setAttribute('min', '0');
+			}
+			eMiddleLeft.className = 'middle-left-10 ';
+			middleLeft.className = leftClass;
+			middleLeft.id = leftClass;
+			eMiddleLeft.appendChild(middleLeft);
+			this.Div.appendChild(eMiddleLeft);
+
+			let eMiddleRight = document.createElement('div');
+			eMiddleRight.className = 'middle-right-10';
+			eMiddleRight.appendChild(middleRight);
+			this.Div.appendChild(eMiddleRight);
+
+			let eR = document.createElement('div');
+			eR.className = 'right-10';
+			if (right.type === 'text') {
+				right.setAttribute('type', 'number');
+				right.setAttribute('min', '0');
+			}
+			right.className = rightClass;
+			right.id = rightClass;
+			eR.appendChild(right);
+			this.Div.appendChild(eR);
+		}
+		addSelectOption(className) {
+			className.forEach(classElement => {
+				$('#' + this.object['areaCluster'][this.index] + ' .' + classElement).html('<option select>Chọn...</option>');
+				this.object[classElement].forEach(element => {
+					$('#' + this.object['areaCluster'][this.index] + ' .' + classElement).append('<option>' + element + '</option>');
+				});
+			});
+		}
+
+		addRowSelectOption(className, imDataObject) {
+			className.forEach(classElement => {
+				$('.' + classElement).html('<option select>Chọn...</option>');
+				imDataObject[classElement].forEach(element => {
+					$('.' + classElement).append('<option>' + element + '</option>');
+				});
+			});
+		}
+
+		render() {
+			return this.Div;
+		}
+	}
+
+	/**
+ * SelectBox Actions
+ */
+	$(function () {
+		var imDataObject;
+		$('.btn-danger').attr('disabled', true);
+		google.script.run.withSuccessHandler(imDataObjectCall).getIMData('Cụm 1 - 6', 'Cụm 1');
+		function imDataObjectCall(object) {
+			imDataObject = object;
+			let checkExist = window.setInterval(function () {
+				$('.pre-loader').fadeOut('slow');
+				if (imDataObject != null) {
+					clearInterval(checkExist);
+				}
+			}, 100);
+		}
+
+		// End Render Selectboxes
+
+		/**
+	 * on area selectbox change
+	 */
+		$('.area select').on('change', () => {
+			switch ($('.area select').val()) {
+				case 'Mixing':
+					$('#category').html('<option selected disabled>Chọn ...</option><option>Resin</option><option>Colorant</option>');
+					$('.cell select').prop('disabled', true);
+					$('.cell select').empty();
+					break;
+				case 'IM':
+					$('#category').html('<option selected disabled>Chọn ...</option><option>Cụm 1 - 6</option><option>Cụm 7 - 12</option><option>Cụm 13 - 21</option>');
+					$('.cell select').prop('disabled', true);
+					$('.cell select').empty();
+					break;
+			}
+		});
+
+		/**
+		* on category selectbox change
+		*/
+		$('.category select').on('change', () => {
+			switch ($('.area select').val()) {
+				case 'Mixing':
+					$('.border').toggleClass('progress-bar-striped progress-bar-animated');
+					$('.tbl').slideUp(1400);
+					if ($('.category select').val() === 'Resin') {
+						google.script.run.withSuccessHandler(renderResin).getMixingData('Resin');
+					}
+					if ($('.category select').val() === 'Colorant') {
+						google.script.run.withSuccessHandler(renderColorant).getMixingData('Colorant');
+					}
+					$('.btn-danger').attr('disabled', false);
+					$('.add-row').hide();
+					break;
+				case 'IM':
+					var addRow = document.createElement('div');
+					addRow.className = 'add-row';
+					$('.add-row').html('<i class="fas fa-plus"></i>');
+					window.setInterval(() => {
+						if (($(document).height() - $(window).height() - $(window).scrollTop() < 100) && ($(document).height() > $(window).height())) {
+							$('.add-row').addClass('shown');
+						} else {
+							$('.add-row').removeClass('shown');
+						}
+					}, 300);
+					let clusterMapping = {
+						'Cụm 1 - 6': 4,
+						'Cụm 7 - 12': 4,
+						'Cụm 13 - 21': 2,
+					};
+					if (clusterMapping.hasOwnProperty($('.category select').val())) {
+						$('.cell select').html('<option selected disabled>Chọn ...</option>');
+						for (let i = 0; i < clusterMapping[$('.category select').val()]; i++) {
+							$('.cell select').append('<option>Cụm ' + (i + 1) + '</option>');
+						}
+					}
+					$('.cell select').prop('disabled', false);
+					break;
+			}
+		});
+
+		/**
+	 * on cell selectbox change
+	 */
+		$('.cell select').on('change', () => {
+			$('.tbl').slideUp(1400);
+			$('.border').toggleClass('progress-bar-striped progress-bar-animated');
+			google.script.run.withSuccessHandler(renderIM).getIMData($('.category select').val(), $('.cell select').val());
+			$('.btn-danger').attr('disabled', false);
+			$('.tbl').slideUp(1400);
+		});
+
+		/**
+		 * add more Row button
+		*/
+		$('.add-row').on('click', () => {
+			className = ['color', 'wipType', 'tankType', 'bundle'];
+			const table = document.querySelector('.tbl');
+			const additionalRow = new imTableRow(imDataObject, -1);
+			additionalRow.addFirstProp();
+			additionalRow.addSecondProp('bundle', document.createTextNode('Sản phẩm'), document.createElement('select'));
+			additionalRow.addProp('color', document.createTextNode('Màu'), document.createElement('select'), 'wipType', document.createTextNode('Loại trolley'), document.createElement('select'));
+			additionalRow.addProp('tankType', document.createTextNode('Loại Tank'), document.createElement('select'), 'wipquantity', document.createTextNode('Số lượng wip'), document.createElement('input'));
+			additionalRow.addProp('tankweight', document.createTextNode('Khối lượng tank'), document.createElement('input'), 'wipweight', document.createTextNode('Khối lượng wip'), document.createElement('input'));
+			additionalRow.addProp('dryerAndSkeleton', document.createTextNode('Số lượng cán'), document.createElement('input'), 'hopper', document.createTextNode('Hopper'), document.createElement('input'));
+			table.appendChild(additionalRow.render());
+			additionalRow.addRowSelectOption(className, imDataObject);
+		});
+
+		/**
+		 * resin handler for data submission
+		*/
+		function resinHandler(selectedArea) {
+			const area = new Map();
+			area.set('Resin', {
+				'resinData': {
+					'area': '',
+					'materialtype': '',
+					'materialcode': [],
+					'buffer-fullpack': [],
+					'buffer-leftover': [],
+					'machine-fullpack': [],
+					'machine-leftover': [],
+					'username': ''
+				},
+				'inputclass': '.tbl-resin', 'parentclass': '.tbl',
+			});
+			let submitArea = area.get(selectedArea);
+			$(submitArea['inputclass']).each(function () {
+				area.get(selectedArea)['resinData']['area'] = selectedArea;
+				area.get(selectedArea)['resinData']['materialtype'] = $('.category select').val();
+				area.get(selectedArea)['resinData']['materialcode'].push($(this).attr('id'));
+				area.get(selectedArea)['resinData']['buffer-fullpack'].push($('input[data-fullpack-buffer-area="' + $(this).attr('id') + '"]').val());
+				area.get(selectedArea)['resinData']['buffer-leftover'].push($('input[data-leftover-buffer-area="' + $(this).attr('id') + '"]').val());
+				area.get(selectedArea)['resinData']['machine-fullpack'].push($('input[data-fullpack-machine-area="' + $(this).attr('id') + '"]').val());
+				area.get(selectedArea)['resinData']['machine-leftover'].push($('input[data-leftover-machine-area="' + $(this).attr('id') + '"]').val());
+			});
+			area.get(selectedArea)['resinData']['username'] = ($('.username input').val());
+
+			google.script.run.withSuccessHandler(toggleButton).withUserObject(area.get(selectedArea)).submitResinStockCount(area.get(selectedArea)['resinData']);
+		}
+
+		/**
+		 * colorantHandler for Colorant data submission
+		*/
+		function colorantHandler(selectedArea) {
+			const area = new Map();
+			area.set('Colorant', {
+				'colorantData': {
+					'area': '',
+					'materialtype': '',
+					'materialcode': [],
+					'colorantweight': [],
+					'username': ''
+				},
+				'inputclass': '.tbl-colorant', 'parentclass': '.tbl',
+			});
+			let submitArea = area.get(selectedArea);
+			$(submitArea['inputclass']).each(function () {
+				area.get(selectedArea)['colorantData']['area'] = selectedArea;
+				area.get(selectedArea)['colorantData']['matarialtype'] = $('.category select').val();
+				area.get(selectedArea)['colorantData']['materialcode'].push($(this).attr('id'));
+				area.get(selectedArea)['colorantData']['colorantweight'].push($('input[data-colorant="' + $(this).attr('id') + '"]').val());
+			});
+			area.get(selectedArea)['colorantData']['username'] = ($('.username input').val());
+			google.script.run.withSuccessHandler(toggleButton).withUserObject(area.get(selectedArea)).submitColorantStockCount(area.get(selectedArea)['colorantData']);
+
+		}
+
+		/** 
+		 * imHandler for IM data submission
+		*/
+		function imHandler(selectedArea) {
+			const area = new Map();
+			area.set('IM', {
+				'imData': {
+					'machinename': [],
+					'bundle': [],
+					'color': [],
+					'tanktype': [],
+					'tankweight': [],
+					'hoper': [],
+					'troleytype': [],
+					'wipcount': [],
+					'wipweight': [],
+					'skeletoncount': [],
+					'dryerweight': [],
+				},
+				'inputclass': '.tbl-im', 'parentclass': '.tbl',
+			});
+
+			let submitArea = area.get(selectedArea);
+			$(submitArea['inputclass']).each(function () {
+				area.get(selectedArea)['imData']['machinename'].push($(this).attr('id'));
+				area.get(selectedArea)['imData']['bundle'].push($(this).children('.middle-top-right-10').children('select').val());
+				area.get(selectedArea)['imData']['color'].push($(this).children('.color').children('select').val());
+				area.get(selectedArea)['imData']['tanktype'].push($(this).children('.tankType').children('select').val());
+				area.get(selectedArea)['imData']['tankweight'].push($(this).children('.tankweight').children('input').val());
+				area.get(selectedArea)['imData']['troleytype'].push($(this).children('.wipType').children('select').val());
+				area.get(selectedArea)['imData']['wipcount'].push($(this).children('.wipquantity').children('select').val());
+				area.get(selectedArea)['imData']['wipweight'].push($(this).children('.wipweight').children('select').val());
+				area.get(selectedArea)['imData']['hoper'].push($(this).children('.hoper').children('select').val());
+				let machineType = $(this).attr('id').split('')[0] === 'V' ? area.get(selectedArea)['imData']['skeletoncount'] : area.get(selectedArea)['imData']['dryerweight'];
+				machineType.push($(this).children('.dryerAndSkeleton').children('input').val());
+			});
+			google.script.run.withSuccessHandler(toggleButton).withUserObject(area.get(selectedArea)).submitIMStockCount(area.get(selectedArea)['imData']);
+		}
+		/**
+		* Submit button on click
+		*/
+		$(document).on('click', '.submit', () => {
+			let area = '';
+			switch ($('.area select').val()) {
+				case 'Mixing':
+					area = '.tbl';
+					break;
+				case 'IM':
+					area = '.tbl-im';
+					break;
+			}
+			var inputIsEmpty = $(this).find(area + ' input').filter(function () {
+				return this.value === '';
+			});
+			if (inputIsEmpty.length) {
+				$('footer').notify(
+					'Bạn chưa điền hết các ô nhập',
+					{
+						position: 'top center',
+						className: 'error'
+					}
+				);
+			} else {
+				$('footer').notify(
+					'Dữ liệu đang được cập nhật, xin vui lòng không tắt trình duyệt!!!',
+					{
+						position: 'top center',
+						className: 'info'
+					}
+				);
+				$('.rotate button').toggleClass('rotate-button');
+				if ($('.area select').val() === 'IM') {
+					imHandler('IM');
+				}
+				if ($('.area select').val() === 'Mixing') {
+					switch ($('.category select').val()) {
+						case 'Resin':
+							resinHandler('Resin');
+							break;
+						case 'Colorant':
+							console.log('match');
+							colorantHandler('Colorant');
+							console.log('ran');
+							break;
+					}
+				}
+			}
+		});
+
+		/**
+	 * Data update successfully notification
+	 */
+		function toggleButton(isWritten, selectedArea) {
+			if (isWritten) {
+				$('.rotate button').removeClass('rotate-button');
+				$('.username').empty();
+				$('.username').removeClass('shown');
+				$(selectedArea['parentclass']).slideUp(1000, () => {
+					$(selectedArea['parentclass']).empty();
+					$('.btn-danger').attr('disabled', true);
+					$('footer').notify(
+						'Dữ liệu đã được cập nhật thành công',
+						{
+							position: 'top center',
+							className: 'success'
+						}
+					);
+				});
+			}
+		}
+	});
+
+
+	/**
+ * Go to top button
+ */
+	$(function () {
+		window.setInterval(() => {
+			if ($(window).scrollTop() > 50) {
+				$('.go-to-top').addClass('shown');
+			}
+			else {
+				$('.go-to-top').removeClass('shown');
+			}
+		}, 300);
+
+		$('.go-to-top').click(function () {
+			$('html').animate({ scrollTop: 0 }, 'slow'); return true;
+		});
+	});
+
+
+	/**
+ * Render mixing table using TableRow class 
+ * @param {object} mixing information which will be pull from 'Stock Count Material_Mixing' sheet
+ */
+
+	function renderResin(object) {
+		$('.tbl').empty();
+		for (let i = 0; i < object['materialCode'].length; i++) {
+			const table = document.querySelector('.tbl');
+			const newRow = new ResinTableRow(object['materialCode'][i], object['materialDescription'][i]);
+			newRow.addHeadProp();
+			newRow.addProp(document.createTextNode('Khu vực chờ trộn'), document.createElement('input'), document.createElement('input'), 'buffer-area');
+			newRow.addProp(document.createTextNode('Khu vực máy'), document.createElement('input'), document.createElement('input'), 'machine-area');
+			table.appendChild(newRow.render());
+		}
+		$('.border').toggleClass('progress-bar-striped progress-bar-animated');
+		$('.tbl').slideDown(1400);
+		$('.username').html('<input type="text" placeholder="MSNV">');
+		$('.username').addClass('shown');
+	}
+
+	function renderColorant(object) {
+		$('.tbl').empty();
+		for (let i = 0; i < object['materialCode'].length; i++) {
+			const table = document.querySelector('.tbl');
+			const newRow = new ColorantTableRow(object['materialCode'][i], object['materialDescription'][i]);
+			newRow.addHeadProp();
+			newRow.addProp(document.createElement('input'), 'colorant-area');
+			table.appendChild(newRow.render());
+		}
+		$('.border').toggleClass('progress-bar-striped progress-bar-animated');
+		$('.tbl').slideDown(1400);
+		$('.username').html('<input type="text" placeholder="MSNV">');
+		$('.username').addClass('shown');
+	}
+
+
+	function renderIM(object, className = ['color', 'wipType', 'tankType', 'bundle']) {
+		$('.tbl').empty();
+		for (let i = 0; i < object['areaCluster'].length; i++) {
+			const table = document.querySelector('.tbl');
+			const newRow = new imTableRow(object, i);
+			let imMachineType = object['areaCluster'][i].split('')[0] == 'V' ? document.createTextNode('Số lượng cán') : document.createTextNode('Khối lượng máy sấy');
+			newRow.addFirstProp();
+			newRow.addSecondProp('bundle', document.createTextNode('Sản phẩm'), document.createElement('select'));
+			newRow.addProp('color', document.createTextNode('Màu'), document.createElement('select'), 'wipType', document.createTextNode('Loại trolley'), document.createElement('select'));
+			newRow.addProp('tankType', document.createTextNode('Loại Tank'), document.createElement('select'), 'wipquantity', document.createTextNode('Số lượng wip'), document.createElement('input'));
+			newRow.addProp('tankweight', document.createTextNode('Khối lượng tank'), document.createElement('input'), 'wipweight', document.createTextNode('Khối lượng wip'), document.createElement('input'));
+			newRow.addProp('dryerAndSkeleton', imMachineType, document.createElement('input'), 'hopper', document.createTextNode('Hopper'), document.createElement('input'));
+			table.appendChild(newRow.render());
+			newRow.addSelectOption(className);
+		}
+		$('.border').toggleClass('progress-bar-striped progress-bar-animated');
+		$('.tbl').slideDown(1400);
+		$('.username').html('<input type="text" placeholder="MSNV">');
+		$('.username').addClass('shown');
+	}
+</script>
